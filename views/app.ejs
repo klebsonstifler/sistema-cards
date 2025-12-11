@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>App - Sistema de Cards</title>
+
+  <!-- Caminho CORRETO -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1>Sistema de Cards</h1>
+    <div class="user">Bem-vindo, <%= user.username %> (<%= user.role %>)</div>
+    <form method="POST" action="/auth/logout" style="display:inline;"><button>Logout</button></form>
+  </header>
+
+  <main class="container">
+    <aside class="left">
+      <div class="card form-card">
+        <h2>Novo Registro</h2>
+
+        <% if (user.role === 'admin') { %>
+        <form id="formNovo">
+          <input name="nome" placeholder="Nome" required>
+          <input name="cpf" placeholder="CPF">
+          <input name="rg" placeholder="RG">
+          <input name="art" placeholder="ART">
+          <input name="qth" placeholder="QTH">
+
+          <select name="status">
+            <option>ATIVO</option>
+            <option>INATIVO</option>
+          </select>
+
+          <textarea name="obs" placeholder="Observações"></textarea>
+          <input type="file" name="foto" accept="image/*">
+          <button type="submit">Salvar</button>
+        </form>
+        <% } else { %>
+          <p>Você não tem permissão para criar registros.</p>
+        <% } %>
+      </div>
+
+      <div class="card search-card">
+        <h3>Filtros / Busca</h3>
+        <input id="filtroNome" placeholder="Nome">
+        <input id="filtroCPF" placeholder="CPF">
+        <input id="filtroRG" placeholder="RG">
+        <input id="filtroQTH" placeholder="QTH">
+
+        <select id="filtroStatus">
+          <option value="">Todos</option>
+          <option>ATIVO</option>
+          <option>INATIVO</option>
+        </select>
+
+        <button id="btnFiltrar">Filtrar</button>
+
+        <% if (user.role === 'admin') { %>
+          <button id="exportCSV">Exportar CSV</button>
+        <% } %>
+      </div>
+    </aside>
+
+    <section class="right">
+      <div class="card stats-card">
+        <h3>Dashboard</h3>
+        <p>Total: <span id="total">0</span></p>
+        <p>Ativos: <span id="ativos">0</span></p>
+        <p>Inativos: <span id="inativos">0</span></p>
+        <canvas id="chartStatus" height="120"></canvas>
+      </div>
+
+      <div class="card list-card">
+        <h3>Registros</h3>
+        <div id="lista"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    window.CURRENT_USER = <%- JSON.stringify(user) %>;
+  </script>
+
+  <!-- Caminho CORRETO -->
+  <script src="/js/app.js"></script>
+</body>
+</html>

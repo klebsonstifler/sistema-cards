@@ -1,0 +1,13 @@
+header {
+    background: var(--cor1);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.options {
+    padding: 20px;
+}
+a {
+    color: var(--cor2);
+}

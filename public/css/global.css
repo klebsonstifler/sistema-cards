@@ -1,0 +1,12 @@
+:root {
+    --cor1: #003366;
+    --cor2: #0055a4;
+    --cor3: #e6eef5;
+    --cor-texto: #ffffff;
+    --cor-card: #f4f4f4;
+}
+body {
+    background: var(--cor3);
+    font-family: Arial;
+    margin: 0;
+}
